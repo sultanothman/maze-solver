@@ -11,7 +11,7 @@ class Window():
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
 
         # Create the canvas to draw maze and solution
-        self.canvas = Canvas(self.__root, bg="white" width=width, height=height)
+        self.canvas = Canvas(self.__root, bg="white", width=width, height=height)
         self.canvas.pack(fill=BOTH, expand=True)
 
     def redraw(self):
@@ -25,3 +25,8 @@ class Window():
 
     def close(self):
         self.is_running = False
+
+    def draw_line(self, line, fill_color):
+        line.draw(self.canvas, fill_color)
+    
+    
