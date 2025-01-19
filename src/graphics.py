@@ -2,19 +2,16 @@ from tkinter import Tk, BOTH, Canvas
 
 class Window():
     def __init__(self, width, height):
-        # Maze window width, height and save window running status
-        self.width = width
-        self.height = height
+        # Maze window status
         self.is_running = False
 
         # TK wigit initialization
         self.__root = Tk()
         self.__root.title("Maze Solver")
-        self.__root.geometry(f"{self.width}x{self.height}")
         self.__root.protocol("WM_DELETE_WINDOW", self.close)
 
         # Create the canvas to draw maze and solution
-        self.canvas = Canvas(self.__root, width=self.width, height=self.height)
+        self.canvas = Canvas(self.__root, bg="white" width=width, height=height)
         self.canvas.pack(fill=BOTH, expand=True)
 
     def redraw(self):
