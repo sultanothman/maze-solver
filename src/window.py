@@ -22,11 +22,9 @@ class Window():
         self.__root.update()
 
     def wait_for_close(self):
-        print("wait to close request!")
         self.is_running = True
         while self.is_running:
             self.redraw()
 
     def close(self):
-        print("closing...")
         self.is_running = False
