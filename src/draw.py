@@ -12,7 +12,7 @@ class Line:
         self.point_b = b
 
     def draw(self, canvas, fill_color):
-        canvas.create_line(self.point_a.x, self.point_a.y, self.point_b.x, self.point_b.y, fill=fill_color, width=2)
+        canvas.create_line(self.point_a.x, self.point_a.y, self.point_b.x, self.point_b.y, fill=fill_color, width=5)
 
 class Cell:
     def __init__(self, left_wall=True, right_wall=True, top_wall=True, bottom_wall=True, x1=0, y1=0, x2=0, y2=0, window=None):
@@ -57,8 +57,8 @@ class Cell:
             self._win.draw_line(path, "red")
 
     def get_center(self):
-        x = (self._x2 + self._x1)/2
-        y = (self._y2 + self._y1)/2
+        x = (self._x2 + self._x1)//2
+        y = (self._y2 + self._y1)//2
 
         return Point(x,y)
 
