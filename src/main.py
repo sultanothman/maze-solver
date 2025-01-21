@@ -47,6 +47,10 @@ def main():
     cell14.draw()
     cell15.draw()
 
+    cell12.draw_move(cell13)
+    cell5.draw_move(cell6, True)
+
+
     win.wait_for_close()
 
 if __name__ == "__main__":
