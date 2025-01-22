@@ -37,22 +37,30 @@ class Cell:
         top_right_corner = Point(self._x2, self._y1)
         bottom_left_corner = Point(self._x1, self._y2)
         bottom_right_corner = Point(self._x2, self._y2)
-
+        
+        line = Line(top_left_corner, top_right_corner)
         if self.has_top_wall:
-            line = Line(top_left_corner, top_right_corner)
             self._win.draw_line(line, "black")
+        else:
+            self._win.draw_line(line, "white")
 
+        line = Line(top_left_corner, bottom_left_corner)
         if self.has_left_wall:
-            line = Line(top_left_corner, bottom_left_corner)
             self._win.draw_line(line, "black")
-
+        else:
+            self._win.draw_line(line, "white")
+        
+        line = Line(top_right_corner, bottom_right_corner)
         if self.has_right_wall:
-            line = Line(top_right_corner, bottom_right_corner)
             self._win.draw_line(line, "black")
+        else:
+            self._win.draw_line(line, "white")
 
+        line = Line(bottom_left_corner, bottom_right_corner)
         if self.has_bottom_wall:
-            line = Line(bottom_left_corner, bottom_right_corner)
             self._win.draw_line(line, "black")
+        else:
+            self._win.draw_line(line, "white")
 
     def draw_move(self, to_cell, undo=False):
         path = Line(self.get_center(), to_cell.get_center())
