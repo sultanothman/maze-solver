@@ -20,26 +20,21 @@ class Maze:
         self.cell_size_y = cell_size_y
         self._win = win
     
-        self._cells = self._create_cells()
-
-        self._draw_cells()
+        self._cells = []
+        self._create_cells()
 
     def _create_cells(self):
-        maze = []
         
         #Draw the maze as columns
         for i in range(self.num_cols):
-            cells_row = []
+            cells_col = []
             for j in range(self.num_rows):
-                x1 = i*self.cell_size_x + self._x
-                y1 = j*self.cell_size_y + self._y
-                x2 = x1 + self.cell_size_x
-                y2 = y1 + self.cell_size_y
-
-                cells_row.append(Cell(x1=x1 ,y1=y1, x2=x2, y2=y2, window=self._win))
-
-            maze.append(cells_row)
-            
+                cells_col.append(Cell(self._win))
+            self._cells.append(cells_col)
+        
+        for i in range(self.num_cols):
+            for j in range(self.num_rows):
+                self._draw_cells(i,j)
         # #Draw the maze as rows
         # for i in range(self.num_rows):
         #     cells_row = []
@@ -49,17 +44,21 @@ class Maze:
         #         x2 = x1 + self.cell_size_x
         #         y2 = y1 + self.cell_size_y
 
-        #         cells_row.append(Cell(x1=y1 ,y1=x1, x2=y2, y2=x2, window=self._win))
+        #         cells_row.append(Cell(self._win))
 
-        #     maze.append(cells_row)
+        #     self._cells.append(cells_row)
         
-        return maze
     
-    def _draw_cells(self):
-        for cells_row in self._cells:
-            for cell in cells_row:
-                cell.draw()
-                self._animate()
+    def _draw_cells(self, i, j):
+        if self._win is None:
+            return
+        x1 = i*self.cell_size_x + self._x
+        y1 = j*self.cell_size_y + self._y
+        x2 = x1 + self.cell_size_x
+        y2 = y1 + self.cell_size_y
+        
+        self._cells[i][j].draw(x1, y1, x2, y2)
+        self._animate()
 
 
     def _animate(self):

@@ -1,4 +1,4 @@
-
+import time
 
 class Point:
     def __init__(self, x=0, y=0):
@@ -12,21 +12,27 @@ class Line:
         self.point_b = b
 
     def draw(self, canvas, fill_color):
-        canvas.create_line(self.point_a.x, self.point_a.y, self.point_b.x, self.point_b.y, fill=fill_color, width=5)
+        canvas.create_line(self.point_a.x, self.point_a.y, self.point_b.x, self.point_b.y, fill=fill_color, width=3)
 
 class Cell:
-    def __init__(self, left_wall=True, right_wall=True, top_wall=True, bottom_wall=True, x1=0, y1=0, x2=0, y2=0, window=None):
-        self.has_left_wall = left_wall
-        self.has_right_wall =right_wall
-        self.has_top_wall = top_wall
-        self.has_bottom_wall = bottom_wall
+    def __init__(self, window, left = True, right = True, top = True, bottom = True):
+        self.has_left_wall = left
+        self.has_right_wall = right
+        self.has_top_wall = top
+        self.has_bottom_wall = bottom
+        self._x1 = None
+        self._y1 = None
+        self._x2 = None
+        self._y2 = None
+        self._win = window
+
+    def draw(self, x1, y1, x2, y2):
+        if self._win is None:
+            return
         self._x1 = x1
         self._y1 = y1
         self._x2 = x2
-        self._y2 =y2
-        self._win = window
-
-    def draw(self):
+        self._y2 = y2
         top_left_corner = Point(self._x1, self._y1)
         top_right_corner = Point(self._x2, self._y1)
         bottom_left_corner = Point(self._x1, self._y2)
