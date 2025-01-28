@@ -25,6 +25,10 @@ class Cell:
         self._x2 = None
         self._y2 = None
         self._win = window
+        self._visited = False #if visited, then we already broke some walls
+
+    def redraw(self):
+        self.draw(self._x1, self._y1, self._x2, self._y2)
 
     def draw(self, x1, y1, x2, y2):
         if self._win is None:
@@ -37,7 +41,7 @@ class Cell:
         top_right_corner = Point(self._x2, self._y1)
         bottom_left_corner = Point(self._x1, self._y2)
         bottom_right_corner = Point(self._x2, self._y2)
-        
+
         line = Line(top_left_corner, top_right_corner)
         if self.has_top_wall:
             self._win.draw_line(line, "black")

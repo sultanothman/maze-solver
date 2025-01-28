@@ -1,11 +1,12 @@
 from graphics import Window
 from draw import *
 from maze import Maze
+import random
 
 def main():
 
     num_rows = 5
-    num_cols = 25
+    num_cols = 5
     margin = 50
     screen_x = 800
     screen_y = 600
@@ -13,9 +14,9 @@ def main():
     cell_size_y = (screen_y - 2 * margin) / num_rows
 
     win = Window(screen_x, screen_y)
+    seed = random.randrange(100)
 
     maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win)
-    maze._break_entrance_and_exit()
 
     win.wait_for_close()
 
