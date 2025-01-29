@@ -27,6 +27,7 @@ class Maze:
         self._break_entrance_and_exit()
         self._break_walls_r(0,0)
         self._reset_cells_visited()
+        self.solve()
 
     def _create_cells(self):
         
@@ -73,11 +74,11 @@ class Maze:
     def _break_entrance_and_exit(self):
         entrance_cell = self._cells[0][0]
         entrance_cell.has_left_wall = False
-        entrance_cell.draw(entrance_cell._x1, entrance_cell._y1, entrance_cell._x2, entrance_cell._y2)
+        entrance_cell.redraw()
 
         exit_cell = self._cells[self.num_cols-1][self.num_rows-1]
         exit_cell.has_right_wall = False
-        exit_cell.draw(exit_cell._x1, exit_cell._y1, exit_cell._x2, exit_cell._y2)
+        exit_cell.redraw()
 
     def _break_walls_r(self, i, j):
         self._cells[i][j]._visited = True
@@ -142,5 +143,62 @@ class Maze:
         for column in self._cells:
             for cell in column:
                 cell._visited = False
+
+    def solve(self):
+        return self._solve_r(0,0)
+    
+    def _solve_r(self, i, j):
+        
+        current_cell = self._cells[i][j]
+        current_cell._visited = True
+        if current_cell == self._cells[self.num_cols-1][self.num_rows-1]:
+            return True
+
+        to_visit = []
+        if i+1 < self.num_cols and not self._cells[i+1][j]._visited and not current_cell.has_right_wall:
+            to_visit.append((i+1, j))
+
+        if i-1 >= 0 and not self._cells[i-1][j]._visited and not current_cell.has_left_wall:
+            to_visit.append((i-1, j))
+
+        if j+1 < self.num_rows and not self._cells[i][j+1]._visited and not current_cell.has_bottom_wall:
+            to_visit.append((i, j+1))
+
+        if j-1 >= 0 and not self._cells[i][j-1]._visited and not current_cell.has_top_wall:
+            to_visit.append((i, j-1))
+
+        # for direction in to_visit:
+        #     to_cell = self._cells[direction[0]][direction[1]]
+
+        #     current_cell.draw_move(to_cell)
+        #     self._animate()
+
+        #     if self._solve_r(direction[0], direction[1]):
+        #         return True
+            
+        #     print("backward")
+        #     current_cell.draw_move(to_cell, True)
+        #     self._animate()
+
+        while to_visit:
+            position = random.randrange(len(to_visit))
+            direction = to_visit.pop(position)
+
+            to_cell = self._cells[direction[0]][direction[1]]
+
+            current_cell.draw_move(to_cell)
+            self._animate()
+
+            if self._solve_r(direction[0], direction[1]):
+                return True
+            
+            current_cell.draw_move(to_cell, True)
+            self._animate()
+
+        return False
+
+
+
+            
         
     
